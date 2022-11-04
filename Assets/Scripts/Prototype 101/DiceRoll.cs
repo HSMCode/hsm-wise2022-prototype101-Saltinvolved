@@ -5,6 +5,7 @@ using UnityEngine;
 public class DiceRoll : MonoBehaviour
 {
         public int diceNumber;
+        public AudioSource audioSource;
        
 
     // Start is called before the first frame update
@@ -22,7 +23,7 @@ public class DiceRoll : MonoBehaviour
             Debug.Log("You rolled number: " + diceNumber);
             if (diceNumber == 5) 
             {
-                
+                 audioSource.Play();
                 Debug.Log ( diceNumber  + " <color=red> Lucy Number 5, It's a Win </color>");
                 
             }
