@@ -5,14 +5,18 @@ using UnityEngine;
 public class TriggerGoal : MonoBehaviour
 {
     public GameObject Roboter;
+   public AudioSource audioSource;
+    
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(gameObject.name + "just hit" + other.name);
 
         if(other.name == Roboter.name)
-        {
+        { 
             // When roboter collides with goal 
             Debug.Log("Victory");
+            audioSource.Play();
+            
         }
     }
 }
