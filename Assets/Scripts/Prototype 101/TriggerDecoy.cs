@@ -15,10 +15,13 @@ public class TriggerDecoy : MonoBehaviour
 
         if(other.name == Roboter.name)
         { 
-            // When roboter collides with Decoy 
+            // When roboter collides with Decoy destroy
             Debug.Log("NOOOO!");
-            // Teleport cube
-            transform.Translate(30,-30,30);
+            audioSource.Play();
+            Destroy (gameObject,1f);
+            
+            
+            
 
             
             
