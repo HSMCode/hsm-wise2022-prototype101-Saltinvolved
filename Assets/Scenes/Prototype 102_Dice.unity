@@ -241,7 +241,7 @@ MonoBehaviour:
   diceNumber: 0
   audioSource: {fileID: 783653842}
   message: It's a Win
-  luckyNumbers: 0100000004000000050000000600000002000000
+  luckyNumbers: 16000000080000000d00000032000000300000001f000000200000001b000000
 --- !u!65 &168570558
 BoxCollider:
   m_ObjectHideFlags: 0
