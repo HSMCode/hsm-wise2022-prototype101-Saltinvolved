@@ -8,6 +8,7 @@ public class TriggerDecoy : MonoBehaviour
  public AudioSource audioSource;
  
 
+
     
     private void OnTriggerEnter(Collider other)
     {
@@ -17,8 +18,11 @@ public class TriggerDecoy : MonoBehaviour
         { 
             // When roboter collides with Decoy destroy
             Debug.Log("NOOOO!");
+        
             audioSource.Play();
             Destroy (gameObject,1f);
+            
+            
             
             
             
