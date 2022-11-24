@@ -20,7 +20,7 @@ public class TriggerDecoy : MonoBehaviour
             Debug.Log("NOOOO!");
         
             audioSource.Play();
-            Destroy (gameObject,1f);
+            Destroy (gameObject,4f);
             
             
             
