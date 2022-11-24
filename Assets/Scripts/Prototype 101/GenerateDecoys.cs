@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class GenerateDecoys : MonoBehaviour
 {
-    
-    public GameObject Decoy;
     public GameObject[] Decoys;
 
     // Var for spawn ammount of method
-    public int spawnAmount = 5;
+    public int spawnAmount ;
 
     // Variables for radomizing position
-    public float spawnPositionX = 15f;
-    public float spawnPositionZ = 15f;
+    public float spawnPositionXa = -1f;
+    public float spawnPositionXb = 1f;
+    public float spawnPositionZa = -1;
+
+    public float spawnPositionZb = 1f;
+
+
 
     //Variables for Invoke Repeating
     public float startDelay = 2f;
@@ -52,33 +55,36 @@ public class GenerateDecoys : MonoBehaviour
             // call the method with the argument spawnAmount to spawn X decoys with space
                 SpawningDecoyParam(spawnAmount);
         }  
-        // your custom method to spawn one randomly selected decoy from the decoys arry, once the method is called
-    void SpawningDecoys()
-    {
-            for (int i = 0; i < 5; i++)
-            {
-                // here we use the array of decoys and randomly generate the index number of the array, to pick various decoys for each spawn
-                int decoysIndex = Random.Range(0,Decoys.Length);
-
-                // generate random spawn position between the defined values
-                Vector3 spawnPosition = new Vector3(Random.Range(-spawnPositionX,spawnPositionX),0,Random.Range(-spawnPositionZ,spawnPositionZ));
-
-                // instantiate decoy (as we use the decoys array here, the decoys array index randomly generated above is used)
-                Instantiate(Decoys[decoysIndex], spawnPosition, Decoys[decoysIndex].transform.rotation);
-            }
     }
+        // your custom method to spawn one randomly selected decoy from the decoys arry, once the method is called
+//    void SpawningDecoys()
+//     {
+//             for (int i = 0; i < 5; i++)
+//             {
+//                 // here we use the array of decoys and randomly generate the index number of the array, to pick various decoys for each spawn
+//                 int decoysIndex = Random.Range(0,Decoys.Length);
+
+//                 // generate random spawn position between the defined values
+//                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnPositionX,spawnPositionX),0,Random.Range(-spawnPositionZ,spawnPositionZ));
+
+//                 // instantiate decoy (as we use the decoys array here, the decoys array index randomly generated above is used)
+//                 Instantiate(Decoys[decoysIndex], spawnPosition, Decoys[decoysIndex].transform.rotation);
+//             }'
+   // }
 
 // your custom method to spawn the decoy with the given amount paramenter, defined when the method is called inside its braces (see above)
-    void SpawningDecoyParam(int amount)
+
+ void SpawningDecoyParam(int amount)
     {
             for (int i = 0; i < amount; i++)
             {
+                int decoysIndex = Random.Range(0,Decoys.Length);
+
                 // generate random spawn position between the defined values
-                Vector3 spawnPosition = new Vector3(Random.Range(-spawnPositionX,spawnPositionX),0,Random.Range(-spawnPositionZ,spawnPositionZ));
+                Vector3 RandomDecoyPosition = new Vector3(Random.Range(-spawnPositionXa, spawnPositionXb),0 ,Random.Range(-spawnPositionZa,spawnPositionZb));
 
                 // instantiate decoy
-                Instantiate(Decoy, spawnPosition, Decoy.transform.rotation);
+                Instantiate(Decoys[decoysIndex], RandomDecoyPosition, Quaternion.identity);
             }
-    }
     }
 }
