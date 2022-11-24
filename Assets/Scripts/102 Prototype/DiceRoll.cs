@@ -10,6 +10,8 @@ public class DiceRoll : MonoBehaviour
         public int [] luckyNumbers = {22,8,13,50,48,31,32,27};
 
         public bool lucyNumberWasDrawn;
+
+        public ParticleSystem playParticleSystem;
        
 
     // Start is called before the first frame update
@@ -31,6 +33,7 @@ public class DiceRoll : MonoBehaviour
                 //Debug.Log("for loop i" + i);
                 if (diceNumber == luckyNumbers[i])
                 {
+                     PlayParticles(true);
                     audioSource.Play();
                     Debug.Log("<color=green> Lucy Number </color> "+ diceNumber  +" "+ message );
                     lucyNumberWasDrawn= true;
@@ -38,14 +41,25 @@ public class DiceRoll : MonoBehaviour
                 else if (i == (luckyNumbers.Length-1) && lucyNumberWasDrawn == false)
                 { 
                     Debug.Log("<color=red> You Lose </color>"+diceNumber +" is not your lucky number");
+                    PlayParticles(false); 
                 }
             }
             // reset variable for redraw
             lucyNumberWasDrawn = false; 
-
-     
         }
-    
+    }
+
+
+void PlayParticles(bool on)
+    {
+        if(on)
+        {
+            playParticleSystem.Play();
+        }
+        else if(!on)
+        {
+            playParticleSystem.Stop();
+        }
     }
 
  }
