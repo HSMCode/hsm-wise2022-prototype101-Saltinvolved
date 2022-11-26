@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float turnSpeed;
     public Vector3 force;
+    public GameObject Plane; 
 
     private Animator _playerAnim;
     private Rigidbody _playerRb;
@@ -45,4 +46,18 @@ public class PlayerController : MonoBehaviour
             _playerAnim.SetTrigger("Jump");
         }
     }
+
+    // Grond Check for Jump? 
+     private void OnTriggerEnter(Collider other)
+    {
+
+         // When player touches the Ground  
+        if(other.name == Plane.name)
+        { 
+            
+            Debug.Log("Player ist touching the ground");
+
+            
+        }
+    }        
 }
