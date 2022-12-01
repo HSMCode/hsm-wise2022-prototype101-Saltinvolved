@@ -13,11 +13,15 @@ public class PlayerController : MonoBehaviour
 
     private Animator _playerAnim;
     private Rigidbody _playerRb;
+    private bool isJumping = false;
+   
+
     // Start is called before the first frame update
     void Start()
     {
         _playerAnim = GetComponent<Animator>();
         _playerRb = GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
@@ -31,19 +35,24 @@ public class PlayerController : MonoBehaviour
 
         _playerAnim.SetFloat("Run", forwardInput);
 
-        if (forwardInput != 0 || horizontalInput != 0)
+        if (forwardInput !=0 || horizontalInput !=0)
         {
-            _playerAnim.SetBool("Walk", true);
-        }
+             _playerAnim.SetBool("isMoving", true);
+         }
         else
         {
-            _playerAnim.SetBool("Walk", false);
-        }
+             _playerAnim.SetBool("isMoving", false);
+         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
+        if(Input.GetKeyDown(KeyCode.Space)  && !isJumping)
+        { 
             _playerRb.AddForce(force, ForceMode.Impulse);
-            _playerAnim.SetTrigger("Jump");
+            _playerAnim.SetBool("isJumping",true);
+            isJumping = true;
+        }
+        else 
+        {
+            _playerAnim.SetBool("isJumping",false);
         }
     }
 
@@ -54,10 +63,12 @@ public class PlayerController : MonoBehaviour
          // When player touches the Ground  
         if(other.name == Plane.name)
         { 
-            
+          isJumping = false;  
             Debug.Log("Player ist touching the ground");
-
-            
+        }
+        else 
+        {
+            isJumping= true; 
         }
     }        
 }

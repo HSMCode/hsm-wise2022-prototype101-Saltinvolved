@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WresterlControl : MonoBehaviour
 {
-      public float horizontalInput;
+    public float horizontalInput;
     public float forwardInput;
     public float speed;
     public float turnSpeed;
@@ -13,6 +13,8 @@ public class WresterlControl : MonoBehaviour
 
     private Animator _playerAnim;
     private Rigidbody _playerRb;
+    //private bool isJumping;
+    private bool isGrounded;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,22 +30,34 @@ public class WresterlControl : MonoBehaviour
 
         transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * speed);
         transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
+ 
+        // Versuch eine Rennen zu instalieren 
+        // if (Input.GetKeyDown(KeyCode))
+        //  {
+        //     speed = 5;
+        //  }
+        //  else 
+        //  {
+        //     speed = 0.5;
+        //  }
+
+         // versuch ende 
 
         _playerAnim.SetFloat("Run", forwardInput);
 
         if (forwardInput != 0 || horizontalInput != 0)
         {
-            _playerAnim.SetBool("Walk", true);
+            _playerAnim.SetBool("IsMoving", true);
         }
         else
         {
-            _playerAnim.SetBool("Walk", false);
+            _playerAnim.SetBool("IsMoving", false);
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if((Input.GetKeyDown(KeyCode.Space)) && (isGrounded))
         {
             _playerRb.AddForce(force, ForceMode.Impulse);
-            _playerAnim.SetTrigger("Jump");
+            _playerAnim.SetTrigger("IsJumping");
         }
     }
 
@@ -54,10 +68,12 @@ public class WresterlControl : MonoBehaviour
          // When player touches the Ground  
         if(other.name == Plane.name)
         { 
-            
+            isGrounded = true; 
             Debug.Log("Player ist touching the ground");
-
-            
+        }
+        else 
+        {
+            isGrounded = false; 
         }
     }        
 }
