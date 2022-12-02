@@ -8,22 +8,29 @@ public class WresterlControl : MonoBehaviour
     public float forwardInput;
     public float speed;
     public float turnSpeed;
-    public Vector3 force;
+    public float force;
+    public float forceDown;
     public GameObject Plane; 
+    public float gravityModifier;
 
     private Animator _playerAnim;
     private Rigidbody _playerRb;
-    //private bool isJumping;
-    private bool isGrounded;
+    public bool isJumping;
+    public bool isGrounded;
+    public bool isFalling;
     // Start is called before the first frame update
     void Start()
     {
         _playerAnim = GetComponent<Animator>();
         _playerRb = GetComponent<Rigidbody>();
+
+        Physics.gravity *= gravityModifier;
     }
 
     // Update is called once per frame
     void Update()
+
+
     {
         horizontalInput = Input.GetAxis("Horizontal");
         forwardInput = Input.GetAxis("Vertical");
@@ -32,7 +39,7 @@ public class WresterlControl : MonoBehaviour
         transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
  
         
-
+    // Wrestler is Walkin and Running
         _playerAnim.SetFloat("Run", forwardInput);
 
         if (forwardInput != 0 || horizontalInput != 0)
@@ -43,15 +50,45 @@ public class WresterlControl : MonoBehaviour
         {
             _playerAnim.SetBool("IsMoving", false);
         }
-
+    // is Jumping  
         if((Input.GetKeyDown(KeyCode.Space)) && (isGrounded))
         {
-            _playerRb.AddForce(force, ForceMode.Impulse);
-            //_playerAnim.SetTrigger("IsJumping");
+            isJumping = true;
             isGrounded = false;
+            if(isJumping)
+            {
+             _playerAnim.SetTrigger("Jump");
+            
+            }
+           
         }
+        if(Input.GetKeyUp(KeyCode.Space)) 
+        {
+            isJumping = false;
+            isFalling = true;
+           
+            if(isFalling)
+            {
+                _playerAnim.SetBool("IsFalling",true);
+            //_playerAnim.SetBool("IsFalling",true);
+            }
+           
+        }
+    
     }
-
+void FixedUpdate()
+    {
+        if(isJumping)
+        {
+            _playerRb.AddForce(Vector3.up*force, ForceMode.Force);
+            
+        }
+        if(isFalling || isGrounded)
+        {
+            _playerRb.AddForce(Vector3.down * forceDown * _playerRb.mass);
+        }
+        
+}
     // // Grond Check for Jump? 
     //  private void OnTriggerEnter(Collider other)
     // {
@@ -71,9 +108,13 @@ public class WresterlControl : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-            _playerAnim.SetBool("IsGrounded", true);
-            isGrounded = true;
-            print("Player collided");
+          if(isFalling)
+            {
+            _playerAnim.SetBool("IsFalling", false);
+            isFalling = false; 
+            }
+          _playerAnim.SetBool("IsGrounded", true);
+          isGrounded = true;
         }
     }
 
