@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class CubeTestCode : MonoBehaviour
 {
-    public float horizontalInput;
+   public float horizontalInput;
     public float forwardInput;
     public float speed;
     public float turnSpeed;
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerAnim = GetComponent<Animator>();
+        //_playerAnim = GetComponent<Animator>();
         _playerRb = GetComponent<Rigidbody>();
         
     }
@@ -33,21 +33,21 @@ public class PlayerController : MonoBehaviour
         transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * speed);
         transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
 
-        _playerAnim.SetFloat("Run", forwardInput);
+        //_playerAnim.SetFloat("Run", forwardInput);
 
         if (forwardInput !=0 || horizontalInput !=0)
         {
-             _playerAnim.SetBool("isMoving", true);
+            // _playerAnim.SetBool("isMoving", true);
          }
         else
         {
-             _playerAnim.SetBool("isMoving", false);
+            // _playerAnim.SetBool("isMoving", false);
          }
 
         if(Input.GetKeyDown(KeyCode.Space)  && !isJumping)
         { 
-            _playerRb.AddForce(force, ForceMode.Impulse);
-            _playerAnim.SetTrigger("isJumpingt");
+           // _playerRb.AddForce(force, ForceMode.Impulse);
+           // _playerAnim.SetTrigger("isJumpingt");
             //_playerAnim.SetBool("isJumping",true);
             isJumping = true;
             //isGrounded = false; 
@@ -83,3 +83,4 @@ public class PlayerController : MonoBehaviour
 
 //      }     
 }
+

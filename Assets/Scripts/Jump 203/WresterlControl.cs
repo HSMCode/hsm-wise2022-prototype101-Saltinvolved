@@ -31,17 +31,7 @@ public class WresterlControl : MonoBehaviour
         transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * speed);
         transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
  
-        // Versuch eine Rennen zu instalieren 
-        // if (Input.GetKeyDown(KeyCode))
-        //  {
-        //     speed = 5;
-        //  }
-        //  else 
-        //  {
-        //     speed = 0.5;
-        //  }
-
-         // versuch ende 
+        
 
         _playerAnim.SetFloat("Run", forwardInput);
 
@@ -57,23 +47,35 @@ public class WresterlControl : MonoBehaviour
         if((Input.GetKeyDown(KeyCode.Space)) && (isGrounded))
         {
             _playerRb.AddForce(force, ForceMode.Impulse);
-            _playerAnim.SetTrigger("IsJumping");
+            //_playerAnim.SetTrigger("IsJumping");
+            isGrounded = false;
         }
     }
 
-    // Grond Check for Jump? 
-     private void OnTriggerEnter(Collider other)
+    // // Grond Check for Jump? 
+    //  private void OnTriggerEnter(Collider other)
+    // {
+    //     // When player touches the Ground  
+    //     if(other.name == Plane.name)
+    //     { 
+    //         isGrounded = true; 
+    //         Debug.Log("Player ist touching the ground");
+    //     }
+    //     else 
+    //     {
+    //         isGrounded = false; 
+    //     }
+    // } 
+    // Collider 
+    private void OnCollisionEnter (Collision collision)
     {
-
-         // When player touches the Ground  
-        if(other.name == Plane.name)
-        { 
-            isGrounded = true; 
-            Debug.Log("Player ist touching the ground");
-        }
-        else 
+        if(collision.gameObject.CompareTag("Ground"))
         {
-            isGrounded = false; 
+            _playerAnim.SetBool("IsGrounded", true);
+            isGrounded = true;
+            print("Player collided");
         }
-    }        
+    }
+
+           
 }
