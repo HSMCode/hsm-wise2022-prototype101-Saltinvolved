@@ -11,6 +11,7 @@ public class WresterlControl : MonoBehaviour
     public float force;
     public float forceDown;
     public GameObject Plane; 
+    public GameObject Obsticle;
     public float gravityModifier;
 
     private Animator _playerAnim;
@@ -38,7 +39,11 @@ public class WresterlControl : MonoBehaviour
         transform.Translate(Vector3.forward * forwardInput * Time.deltaTime * speed);
         transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
  
-        
+    // Ground Test 
+       if (isGrounded)
+       {
+       Debug.Log("Player ist touching the ground"); 
+       }   
     // Wrestler is Walkin and Running
         _playerAnim.SetFloat("Run", forwardInput);
 
@@ -58,10 +63,9 @@ public class WresterlControl : MonoBehaviour
             if(isJumping)
             {
              _playerAnim.SetTrigger("Jump");
-            
             }
-           
         }
+
         if(Input.GetKeyUp(KeyCode.Space)) 
         {
             isJumping = false;
@@ -70,6 +74,7 @@ public class WresterlControl : MonoBehaviour
             if(isFalling)
             {
                 _playerAnim.SetBool("IsFalling",true);
+
             //_playerAnim.SetBool("IsFalling",true);
             }
            
@@ -108,14 +113,16 @@ void FixedUpdate()
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-          if(isFalling)
-            {
+          //if(isFalling)
+         {
             _playerAnim.SetBool("IsFalling", false);
             isFalling = false; 
+
             }
           _playerAnim.SetBool("IsGrounded", true);
           isGrounded = true;
         }
+       
     }
 
            
