@@ -96,8 +96,10 @@ public class WresterlControl : MonoBehaviour
             }
             if (_playerRb.velocity.y < 0 && isFalling)
             {
-                isLanding = true;
+                
                 isFalling = false;
+                isLanding = true;
+                
                 _playerAnim.SetBool("IsFalling",false); 
             }
             // Backwards 
@@ -156,6 +158,7 @@ void FixedUpdate()
             }
           _playerAnim.SetBool("IsGrounded", true);
           isGrounded = true;
+          jumpTimer = 0;
         }
        
     }
