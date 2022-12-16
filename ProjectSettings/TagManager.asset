@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Obsticle
+  - Enemy
   layers:
   - Default
   - TransparentFX

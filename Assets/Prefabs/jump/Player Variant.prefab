@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2db7e17401e08b94697ecd7acce75ab1, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2db7e17401e08b94697ecd7acce75ab1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -108,9 +112,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eca69ddc4df64049a0766ca7973fb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalInput: 0
-  forwardInput: 0
-  speed: 0
   turnSpeed: 0
-  force: {x: 0, y: 0, z: 0}
-  Plane: {fileID: 0}
+  speed: 0
+  force: 0
+  gravityModifier: 1
+  isOnGround: 0
+  isJumping: 0
+  isFalling: 0
+  isLanding: 0
+  jumpCancelled: 0
+  jumpTimer: 0
+  jumpButtonPressedTime: 1
