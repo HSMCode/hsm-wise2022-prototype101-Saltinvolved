@@ -5,22 +5,27 @@ using UnityEngine;
 public class SpawnEnemie : MonoBehaviour
 
 {
-    public GameObject[] Decoys;
+   public  GameObject Enemy;
+    public GameObject[] Enemys;
 
     // Var for spawn ammount of method
-    public int spawnAmount ;
+    public int spawnAmount = 5;
 
     // Variables for radomizing position
-    public float spawnPositionXa = -1f;
-    public float spawnPositionXb = 1f;
-    public float spawnPositionZa = -1;
+    public float spawnPositionXa = -20f;
+    public float spawnPositionXb = 20f;
+    public float spawnPositionZa = -20;
 
-    public float spawnPositionZb = 1f;
+    public float spawnPositionZb = 20f;
+
+    /// Variables Invoke Repeating
+    public float startDelay= 5f;
+    public float spawnInterwal = 50f;
 
     // Start is called before the first frame update
     void Start()
     {
-        SpawningEnemy(1);
+        SpawningEnemyParam(spawnAmount);
     }
 
     // Update is called once per frame
@@ -29,17 +34,28 @@ public class SpawnEnemie : MonoBehaviour
         
     }
 
-    void SpawningEnemy(int amount)
+    // void SpawningEnemy()
+    // {
+    //         for (int i = 0; i < 5; i++)
+    //         {
+    //             int enemysIndex = Random.Range(0,Enemys.Length);
+
+    //             // generate random spawn position between the defined values
+    //             Vector3 spawnPosition = new Vector3(Random.Range(-spawnPositionXa, spawnPositionXb),0 ,Random.Range(-spawnPositionZa,spawnPositionZb));
+
+    //             // instantiate decoy
+    //             Instantiate(Enemys[enemysIndex],spawnPosition,Enemys[enemysIndex].transfom.rotation);
+    //         }
+    // }
+    void SpawningEnemyParam(int amount)
     {
-            for (int i = 0; i < amount; i++)
-            {
-                int decoysIndex = Random.Range(0,Decoys.Length);
+        for (int i = 0; i < amount; i++)
+         {
+             // generate random spawn position between the defined values
+            Vector3 spawnPosition = new Vector3(Random.Range(-spawnPositionXa, spawnPositionXb),0 ,Random.Range(-spawnPositionZa,spawnPositionZb));
 
-                // generate random spawn position between the defined values
-                Vector3 RandomDecoyPosition = new Vector3(Random.Range(-spawnPositionXa, spawnPositionXb),0 ,Random.Range(-spawnPositionZa,spawnPositionZb));
-
-                // instantiate decoy
-                Instantiate(Decoys[decoysIndex], RandomDecoyPosition, Quaternion.identity);
-            }
+            // instantiate decoy
+            Instantiate(Enemy, spawnPosition, Enemy.transform.rotation);
+         }
     }
 }
