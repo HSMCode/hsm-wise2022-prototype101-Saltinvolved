@@ -10,21 +10,23 @@ public class UpdateScoreTime : MonoBehaviour
 
     //variables for Score
     private Text scoreUI;
-    public string scoreText = "Punktestand: ";
+    public string scoreText = "Dumb Dumb Score: ";
     private int currentScore = 0;
     public int addScore = 1;
     public int winScore = 5; 
 
+    //Variables for result UI
+    private Text resultUI;
+     public string resultLost = "You lost!";
+    public string resultWin = "You won!";
+
     // Variables for timer
     private Text timerUI;
-    public string timerText = "Countdown: ";
+    public string timerText = "Jump Jump Time: ";
     public float countRemaining = 10f;
     private bool countingDown = true;
 
-    // variables for ui 
-    private Text resultUI;
-    public string resultLost = "you lost! ";
-    public string resultWon = "you won! ";
+   
 
     // variables for Game Over
     private bool gameWon;
@@ -71,7 +73,7 @@ public class UpdateScoreTime : MonoBehaviour
             else
             {
                 countRemaining = 0;
-                timerUI.text = timerText + countRemaining;
+                timerUI.text = timerText + countRemaining.ToString();
                 countingDown = false; 
                 CheckGameOver();
 
@@ -106,7 +108,7 @@ public class UpdateScoreTime : MonoBehaviour
         if (gameOver)
         {
              _gameUI.SetActive(false);
-            _gameOverUI.SetActive(false);
+            _gameOverUI.SetActive(true);
         }
     }
 
