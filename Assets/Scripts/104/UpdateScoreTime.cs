@@ -33,6 +33,9 @@ public class UpdateScoreTime : MonoBehaviour
     private bool gameLost;
     private bool gameOver;
 
+     // variables for enemies
+    public int destroyedEnemies;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +85,15 @@ public class UpdateScoreTime : MonoBehaviour
         }
     }
 
+      public void UpdateScoreEnemyDeath()
+    {
+        destroyedEnemies++;
+        currentScore += addScore;
+        scoreUI.text = scoreText + currentScore.ToString();  
+        CheckGameOver();
+    }
+    
+
     private void CheckGameOver()
     {
         //GameOver WIN
@@ -89,28 +101,38 @@ public class UpdateScoreTime : MonoBehaviour
         {
             gameWon = true;
             gameOver = true;
-
-            resultUI.text = resultWin;
-            resultUI.color = Color.green;
-           
+       StartCoroutine(GameOver());
         }
-        //GameOver LOST
-
-        else if (currentScore < winScore && !countingDown)
+        // GameOver LOST
+        else if(currentScore < winScore && !countingDown)
         {
             gameLost = true;
             gameOver = true;
-            resultUI.text = resultLost;
-            resultUI.color = Color.red;
-
-           
+            
+            StartCoroutine(GameOver());
         }
-        if (gameOver)
-        {
-             _gameUI.SetActive(false);
-            _gameOverUI.SetActive(true);
         }
-    }
 
    
+
+
+    private IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(2f);
+
+        if (gameWon)
+        {
+            resultUI.text = resultWin;
+            resultUI.color = Color.green;
+        }
+        else if (gameLost)
+        {
+            resultUI.text = resultLost;
+            resultUI.color = Color.red;
+        }
+
+        _gameUI.SetActive(false);
+        _gameOverUI.SetActive(true);
+
+    }
 }
